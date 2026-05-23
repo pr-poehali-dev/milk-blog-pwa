@@ -2,141 +2,90 @@ import { useState } from "react";
 import { blogData } from "@/data/blogData";
 import Icon from "@/components/ui/icon";
 
-const DAYS_OF_WEEK = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
-
 export default function Archive() {
   const [selected, setSelected] = useState<number | null>(null);
 
   const today = new Date();
-  const todayDayIndex = today.getDay() === 0 ? 6 : today.getDay() - 1;
-  const start = new Date(today.getFullYear(), 0, 0);
-  const dayOfYear = Math.floor((today.getTime() - start.getTime()) / 86400000);
-  const currentWeek = Math.floor(dayOfYear / 7) % 2;
-  const todayDataIndex = currentWeek * 7 + todayDayIndex;
-
-  // Показываем только 7 уникальных дней недели (первую или вторую неделю)
-  const weekEntries = blogData.slice(currentWeek * 7, currentWeek * 7 + 7);
+  const todayIndex = today.getDay() === 0 ? 6 : today.getDay() - 1;
 
   return (
     <main className="max-w-2xl mx-auto px-5 pb-24 animate-fade-up">
       <section className="pt-16 pb-10 text-center">
-        <div
-          className="inline-block mb-4 px-3 py-1 rounded-full border font-sans uppercase"
-          style={{ borderColor: "#d9c4a0", color: "#9a7d5c", fontSize: "11px", letterSpacing: "0.1em" }}
-        >
+        <div className="inline-block mb-4 px-3 py-1 rounded-full border border-milk-300 text-xs tracking-widest text-milk-500 font-sans uppercase">
           Архив
         </div>
-        <h1 className="font-serif text-3xl mb-3" style={{ color: "#3d2d1c" }}>Дни тишины</h1>
-        <p className="font-sans text-sm max-w-xs mx-auto leading-relaxed" style={{ color: "#9a7d5c" }}>
-          Контент меняется каждую неделю. Нажмите на день — раскроется полный preview.
+        <h1 className="font-serif text-3xl text-milk-800 mb-3">Семь дней тишины</h1>
+        <p className="font-sans text-sm text-milk-500 max-w-xs mx-auto leading-relaxed">
+          Каждый день недели — своё настроение. Выберите любой, чтобы заглянуть.
         </p>
       </section>
 
       <div className="space-y-3">
-        {DAYS_OF_WEEK.map((dayName, i) => {
-          const day = weekEntries[i] ?? blogData[i];
-          const isToday = i === todayDayIndex;
-          const isOpen = selected === i;
-
-          return (
+        {blogData.map((day, i) => (
+          <button
+            key={i}
+            onClick={() => setSelected(selected === i ? null : i)}
+            className="w-full text-left"
+          >
             <div
-              key={i}
-              className="rounded-2xl transition-all duration-300"
-              style={{
-                border: isOpen ? "1px solid #b89d78" : "1px solid #f0e0c8",
-                backgroundColor: isOpen ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.45)",
-              }}
+              className={`rounded-2xl border transition-all duration-300 ${
+                selected === i
+                  ? "border-milk-400 bg-white/80 shadow-md"
+                  : "border-milk-200 bg-white/40 hover:bg-white/60 hover:border-milk-300"
+              }`}
             >
-              <button
-                onClick={() => setSelected(isOpen ? null : i)}
-                className="w-full text-left"
-              >
-                <div className="flex items-center justify-between px-6 py-4">
-                  <div className="flex items-center gap-4">
-                    <span className="font-serif text-2xl" style={{ color: "#d9c4a0" }}>{i + 1}</span>
-                    <div>
-                      <p className="font-serif text-base" style={{ color: "#3d2d1c" }}>{dayName}</p>
-                      {isToday && (
-                        <span className="font-sans uppercase tracking-widest" style={{ fontSize: "10px", color: "#9a7d5c" }}>
-                          сегодня
-                        </span>
-                      )}
-                    </div>
+              <div className="flex items-center justify-between px-6 py-4">
+                <div className="flex items-center gap-4">
+                  <span className="font-serif text-2xl text-milk-300">{i + 1}</span>
+                  <div>
+                    <p className="font-serif text-base text-milk-800">{day.dayName}</p>
+                    {todayIndex === i && (
+                      <span className="text-xs font-sans text-milk-400 uppercase tracking-widest">
+                        сегодня
+                      </span>
+                    )}
                   </div>
-                  <Icon
-                    name={isOpen ? "ChevronUp" : "ChevronDown"}
-                    size={16}
-                    className="transition-transform duration-200"
-                    style={{ color: "#d9c4a0" } as React.CSSProperties}
-                  />
                 </div>
-              </button>
+                <Icon
+                  name={selected === i ? "ChevronUp" : "ChevronDown"}
+                  size={16}
+                  className="text-milk-300 transition-transform duration-200"
+                />
+              </div>
 
-              {isOpen && (
-                <div className="px-6 pb-6 space-y-5" style={{ borderTop: "1px solid #f0e0c8", paddingTop: "20px" }}>
-                  {/* Эфемерида */}
-                  <div>
-                    <p className="font-sans uppercase tracking-widest mb-2" style={{ fontSize: "10px", color: "#b89d78" }}>Эфемерида</p>
-                    <p className="font-serif text-base italic leading-relaxed" style={{ color: "#5e4630", fontWeight: 500 }}>
-                      {day.ephemeris}
-                    </p>
-                  </div>
-
-                  {/* История */}
-                  <div>
-                    <p className="font-sans uppercase tracking-widest mb-2" style={{ fontSize: "10px", color: "#b89d78" }}>Тихая история</p>
-                    <p className="font-sans text-sm leading-relaxed" style={{ color: "#7a5f42" }}>
-                      {day.quietStory.text}
-                    </p>
-                    <p className="font-sans mt-2 italic" style={{ fontSize: "11px", color: "#b89d78" }}>
-                      — {day.quietStory.source}
-                    </p>
-                  </div>
-
-                  {/* Цитата */}
-                  <div className="rounded-xl p-4" style={{ backgroundColor: "#fdf9f4", border: "1px solid #f0e0c8" }}>
-                    <p className="font-sans uppercase tracking-widest mb-2" style={{ fontSize: "10px", color: "#b89d78" }}>Цитата дня</p>
-                    <p className="font-serif text-base italic leading-relaxed" style={{ color: "#5e4630" }}>
+              {selected === i && (
+                <div className="px-6 pb-6 space-y-4 border-t border-milk-100 pt-5">
+                  <Preview label="Эфемерида" text={day.ephemeris} />
+                  <Preview label="История" text={day.quietStory.text} />
+                  <div className="bg-milk-50 rounded-xl p-4 border border-milk-100">
+                    <p className="text-xs text-milk-400 uppercase tracking-widest mb-2">Цитата дня</p>
+                    <p className="font-serif text-base italic text-milk-700">
                       «{day.literaryQuote.text}»
                     </p>
-                    <p className="font-sans mt-1" style={{ fontSize: "12px", color: "#b89d78" }}>
-                      — {day.literaryQuote.author} · {day.literaryQuote.work}
+                    <p className="font-sans text-xs text-milk-400 mt-1">
+                      — {day.literaryQuote.author}
                     </p>
                   </div>
-
-                  {/* Рецепт */}
-                  <div>
-                    <p className="font-sans uppercase tracking-widest mb-1" style={{ fontSize: "10px", color: "#b89d78" }}>Рецепт тепла</p>
-                    <p className="font-serif text-base italic" style={{ color: "#3d2d1c" }}>{day.warmRecipe.name}</p>
-                    <p className="font-sans text-sm leading-relaxed mt-1" style={{ color: "#7a5f42" }}>
-                      {day.warmRecipe.intro}
-                    </p>
-                  </div>
-
-                  {/* Три вопроса */}
-                  <div>
-                    <p className="font-sans uppercase tracking-widest mb-3" style={{ fontSize: "10px", color: "#b89d78" }}>Три вопроса</p>
-                    <div className="space-y-2">
-                      {day.threeQuestions.map((q, qi) => (
-                        <div key={qi} className="flex gap-3 items-start">
-                          <span className="font-serif" style={{ color: "#d9c4a0", fontSize: "18px", lineHeight: 1, flexShrink: 0 }}>
-                            {["I", "II", "III"][qi]}
-                          </span>
-                          <p className="font-serif text-sm italic leading-relaxed" style={{ color: "#7a5f42", paddingTop: "2px" }}>{q}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  <Preview label="Рецепт тепла" text={day.warmRecipe.name + " — " + day.warmRecipe.intro} />
                 </div>
               )}
             </div>
-          );
-        })}
+          </button>
+        ))}
       </div>
 
-      <p className="text-center font-sans italic mt-10" style={{ fontSize: "12px", color: "#b89d78" }}>
-        Контент чередуется каждую неделю ✦ Сейчас неделя {currentWeek + 1} из 2
+      <p className="text-center font-sans text-xs text-milk-400 mt-10 italic">
+        Контент обновляется каждый день автоматически ✦
       </p>
     </main>
+  );
+}
+
+function Preview({ label, text }: { label: string; text: string }) {
+  return (
+    <div>
+      <p className="text-xs text-milk-400 uppercase tracking-widest mb-1">{label}</p>
+      <p className="font-sans text-sm text-milk-700 leading-relaxed line-clamp-3">{text}</p>
+    </div>
   );
 }
