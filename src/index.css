@@ -102,3 +102,54 @@
     }
   }
 }
+
+/* ── Промо-плашка конструктора poehali.dev ─────────────────────────── */
+#pp-promo,
+.pp-promo,
+.pp-banner,
+.pp-footer,
+.pp-watermark,
+[class*="pp-promo"],
+[class*="pp-banner"],
+[class*="poehali"],
+[id*="pp-promo"],
+[id*="pp-banner"] {
+  background-color: #f9f0e3 !important;
+  color: #b89d78 !important;
+  font-size: 10px !important;
+  font-family: "Golos Text", sans-serif !important;
+  padding: 4px 12px !important;
+  margin: 0 !important;
+  min-height: unset !important;
+  height: auto !important;
+  line-height: 1.4 !important;
+  border: none !important;
+  border-top: 1px solid #f0e0c8 !important;
+  box-shadow: none !important;
+  opacity: 0.7 !important;
+  letter-spacing: 0.02em !important;
+}
+
+#pp-promo *,
+.pp-promo *,
+.pp-banner *,
+.pp-footer *,
+.pp-watermark *,
+[class*="pp-promo"] *,
+[class*="pp-banner"] *,
+[class*="poehali"] * {
+  color: #b89d78 !important;
+  font-size: 10px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#pp-promo a,
+.pp-promo a,
+.pp-banner a,
+[class*="pp-promo"] a,
+[class*="pp-banner"] a {
+  color: #9a7d5c !important;
+  text-decoration: none !important;
+}
