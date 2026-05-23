@@ -203,23 +203,33 @@ export default function NaturePlayer() {
           <button
             key={s.id}
             onClick={() => toggle(s.id)}
-            className={`flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl border transition-all duration-300 ${
-              active === s.id
-                ? "border-milk-500 bg-milk-100 shadow-sm scale-[0.97]"
-                : "border-milk-200 bg-milk-50 hover:border-milk-300 hover:bg-milk-100"
-            }`}
+            style={{
+              backgroundColor: active === s.id ? "#f9f0e3" : "#fdf9f4",
+              borderColor: active === s.id ? "#9a7d5c" : "#f0e0c8",
+              borderWidth: "1px",
+              borderStyle: "solid",
+              transform: active === s.id ? "scale(0.97)" : "scale(1)",
+            }}
+            className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl transition-all duration-300"
           >
             <span className="text-xl">{s.emoji}</span>
-            <span className={`font-sans text-xs ${active === s.id ? "text-milk-700" : "text-milk-400"}`}>
+            <span
+              className="font-sans text-xs"
+              style={{ color: active === s.id ? "#5e4630" : "#b89d78" }}
+            >
               {s.label}
             </span>
             {active === s.id && (
-              <span className="flex gap-0.5">
-                {[0,1,2].map(i => (
+              <span className="flex gap-0.5 items-end" style={{ height: "12px" }}>
+                {[0, 1, 2].map(i => (
                   <span
                     key={i}
-                    className="w-0.5 bg-milk-400 rounded-full animate-sound-bar"
-                    style={{ height: "10px", animationDelay: `${i * 0.15}s` }}
+                    className="w-0.5 rounded-full animate-sound-bar"
+                    style={{
+                      height: "10px",
+                      backgroundColor: "#b89d78",
+                      animationDelay: `${i * 0.15}s`,
+                    }}
                   />
                 ))}
               </span>

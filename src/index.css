@@ -119,52 +119,55 @@
 }
 
 /* ── Промо-плашка конструктора poehali.dev ─────────────────────────── */
-#pp-promo,
-.pp-promo,
-.pp-banner,
-.pp-footer,
-.pp-watermark,
-[class*="pp-promo"],
-[class*="pp-banner"],
-[class*="poehali"],
-[id*="pp-promo"],
-[id*="pp-banner"] {
+
+/* По имени/классу */
+#pp-promo, .pp-promo, .pp-banner, .pp-footer, .pp-watermark,
+[class*="pp-promo"], [class*="pp-banner"], [class*="poehali"],
+[id*="pp-promo"], [id*="pp-banner"],
+/* Последний прямой дочерний элемент body вне #root — сама плашка */
+body > div:not(#root):not([data-pp-id]),
+body > footer,
+body > aside {
   background-color: #f9f0e3 !important;
-  color: #b89d78 !important;
+  background: #f9f0e3 !important;
+  color: #c8ae8a !important;
   font-size: 10px !important;
   font-family: "Golos Text", sans-serif !important;
-  padding: 4px 12px !important;
+  padding: 3px 12px !important;
   margin: 0 !important;
   min-height: unset !important;
-  height: auto !important;
-  line-height: 1.4 !important;
+  max-height: 28px !important;
+  line-height: 1.5 !important;
   border: none !important;
   border-top: 1px solid #f0e0c8 !important;
   box-shadow: none !important;
-  opacity: 0.7 !important;
-  letter-spacing: 0.02em !important;
+  opacity: 1 !important;
+  letter-spacing: 0.03em !important;
+  position: relative !important;
+  z-index: 1 !important;
 }
 
+body > div:not(#root):not([data-pp-id]) *,
+body > footer *,
+body > aside *,
 #pp-promo *,
 .pp-promo *,
 .pp-banner *,
-.pp-footer *,
-.pp-watermark *,
 [class*="pp-promo"] *,
-[class*="pp-banner"] *,
-[class*="poehali"] * {
-  color: #b89d78 !important;
-  font-size: 10px !important;
+[class*="pp-banner"] * {
   background: transparent !important;
+  background-color: transparent !important;
+  color: #c8ae8a !important;
+  font-size: 10px !important;
   border: none !important;
   box-shadow: none !important;
+  padding: 0 2px !important;
 }
 
+body > div:not(#root):not([data-pp-id]) a,
+body > footer a,
 #pp-promo a,
-.pp-promo a,
-.pp-banner a,
-[class*="pp-promo"] a,
-[class*="pp-banner"] a {
+.pp-banner a {
   color: #9a7d5c !important;
   text-decoration: none !important;
 }

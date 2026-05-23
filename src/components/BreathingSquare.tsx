@@ -235,7 +235,8 @@ export default function BreathingSquare() {
         {!running ? (
           <button
             onClick={start}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-milk-800 text-milk-50 font-sans text-sm transition-all duration-200 hover:bg-milk-700 active:scale-95"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-full font-sans text-sm transition-all duration-200 active:scale-95"
+            style={{ backgroundColor: "#3d2d1c", color: "#fdf9f4" }}
           >
             <Icon name="Play" size={14} />
             Начать дыхание
@@ -243,7 +244,8 @@ export default function BreathingSquare() {
         ) : (
           <button
             onClick={stop}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-milk-300 text-milk-600 font-sans text-sm transition-all duration-200 hover:border-milk-400 active:scale-95"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-full font-sans text-sm transition-all duration-200 active:scale-95"
+            style={{ border: "1px solid #d9c4a0", color: "#7a5f42", backgroundColor: "transparent" }}
           >
             <Icon name="Square" size={14} />
             Остановить
@@ -251,7 +253,7 @@ export default function BreathingSquare() {
         )}
       </div>
 
-      <p className="font-sans text-xs text-milk-400 text-center max-w-xs italic">
+      <p className="font-sans text-xs text-center max-w-xs italic" style={{ color: "#b89d78" }}>
         {running
           ? "Тибетская чаша отмечает каждую фазу — дышите вместе с ней"
           : "4 секунды вдох · 4 задержка · 4 выдох · 4 пауза"}
