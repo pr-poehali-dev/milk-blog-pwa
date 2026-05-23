@@ -1,0 +1,18 @@
+{
+  "name": "Молочный Блог",
+  "short_name": "МолБлог",
+  "description": "Ваш тихий оазис утренней гармонии",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f9f0e3",
+  "theme_color": "#f9f0e3",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
