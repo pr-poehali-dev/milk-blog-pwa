@@ -101,6 +101,21 @@
       transform: translateY(0);
     }
   }
+
+  .animate-sound-bar {
+    animation: soundBar 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes soundBar {
+    from {
+      transform: scaleY(0.3);
+      opacity: 0.5;
+    }
+    to {
+      transform: scaleY(1.4);
+      opacity: 1;
+    }
+  }
 }
 
 /* ── Промо-плашка конструктора poehali.dev ─────────────────────────── */

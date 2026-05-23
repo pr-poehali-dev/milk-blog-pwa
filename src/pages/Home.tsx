@@ -1,5 +1,7 @@
 import { getTodayData, getFormattedDate } from "@/data/blogData";
 import Icon from "@/components/ui/icon";
+import NaturePlayer from "@/components/NaturePlayer";
+import BreathingSquareComponent from "@/components/BreathingSquare";
 
 const FALLBACK = "Сегодняшний рецепт тишины ещё томится на медленном огне...";
 
@@ -23,7 +25,7 @@ export default function Home() {
         <div className="inline-block mb-4 px-3 py-1 rounded-full border border-milk-300 text-xs tracking-widest text-milk-500 font-sans uppercase">
           {data.dayName} · {date}
         </div>
-        <p className="font-serif text-lg leading-relaxed text-milk-700 max-w-md mx-auto italic">
+        <p className="font-serif text-xl leading-relaxed text-milk-700 max-w-md mx-auto italic" style={{ fontWeight: 500 }}>
           {data.ephemeris}
         </p>
       </section>
@@ -141,12 +143,20 @@ export default function Home() {
         </div>
       </Card>
 
+      {/* Звуки природы */}
+      <Card icon="Music" label="Звуки природы">
+        <p className="font-sans text-sm text-milk-500 italic mb-5">
+          Включите фоновый звук для медитации или работы. Генерируется прямо в браузере, без загрузки файлов.
+        </p>
+        <NaturePlayer />
+      </Card>
+
       {/* Дыхательный покой */}
       <Card icon="Heart" label="Дыхательный Покой">
         <p className="font-sans text-sm text-milk-500 italic mb-6">
-          Дыхание по квадрату 4-4-4-4 — один из самых изученных методов снижения тревоги.
+          Дыхание по квадрату 4-4-4-4 — один из самых изученных методов снижения тревоги. Тибетская чаша отмечает каждую фазу.
         </p>
-        <BreathingSquare />
+        <BreathingSquareComponent />
       </Card>
 
       {/* Три вопроса */}
@@ -196,45 +206,3 @@ function Card({
   );
 }
 
-function BreathingSquare() {
-  const steps = [
-    { label: "Вдох", count: "4", side: "top" },
-    { label: "Задержка", count: "4", side: "right" },
-    { label: "Выдох", count: "4", side: "bottom" },
-    { label: "Задержка", count: "4", side: "left" },
-  ];
-
-  return (
-    <div className="flex flex-col items-center gap-6">
-      <div className="relative w-48 h-48">
-        <div className="absolute inset-0 rounded-2xl border-2 border-milk-300" />
-        <div className="absolute inset-3 rounded-xl border border-milk-200 bg-milk-50/50" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <p className="font-serif text-3xl text-milk-400">4</p>
-            <p className="font-sans text-xs text-milk-400 tracking-widest uppercase">секунды</p>
-          </div>
-        </div>
-        {/* Corner labels */}
-        <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-xs text-milk-500 font-sans">Вдох</span>
-        <span className="absolute -right-10 top-1/2 -translate-y-1/2 text-xs text-milk-500 font-sans">Стоп</span>
-        <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-milk-500 font-sans">Выдох</span>
-        <span className="absolute -left-10 top-1/2 -translate-y-1/2 text-xs text-milk-500 font-sans">Стоп</span>
-      </div>
-      <div className="grid grid-cols-2 gap-3 w-full max-w-xs">
-        {steps.map((s) => (
-          <div
-            key={s.side}
-            className="bg-milk-50 rounded-xl p-3 border border-milk-200 text-center"
-          >
-            <p className="font-serif text-2xl text-milk-600">{s.count}</p>
-            <p className="font-sans text-xs text-milk-400 uppercase tracking-wide">{s.label}</p>
-          </div>
-        ))}
-      </div>
-      <p className="font-sans text-xs text-milk-400 text-center max-w-xs">
-        Повторите 4 круга. Дышите медленно, через нос. Закройте глаза.
-      </p>
-    </div>
-  );
-}
